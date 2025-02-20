@@ -13,7 +13,7 @@ from selenium.webdriver.chrome.options import Options
 
 class TestSmokeTest():
   def setup_method(self, method):
-    options = webdriver.ChromeOptions()  # Asegúrate de usar ChromeOptions() correctamente
+    options = Options()
     options.add_argument("--headless=new")
     self.driver = webdriver.Chrome(options=options)
     self.vars = {}
@@ -58,9 +58,8 @@ class TestSmokeTest():
     self.driver.find_element(By.NAME, "biztitle").click()
     self.driver.find_element(By.NAME, "biztitle").send_keys("Test Week W06")
     self.driver.find_element(By.NAME, "submit").click()
+    WebDriverWait(self.driver, 0.001).until(expected_conditions.presence_of_element_located((By.NAME, "email")))
     self.driver.find_element(By.NAME, "email").click()
-    elements = self.driver.find_elements(By.NAME, "email")
-    assert len(elements) > 0
     self.driver.find_element(By.NAME, "email").send_keys("user@nextmail.com")
     self.driver.find_element(By.NAME, "cellphone").click()
     self.driver.find_element(By.NAME, "cellphone").send_keys("961-826-0248")
